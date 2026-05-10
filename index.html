@@ -1,408 +1,867 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mohamed Dieng - Ingénieur IA & Data Science</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohamed Dieng — Data Engineer & AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --bg2: #111118;
+  --bg3: #18181f;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #f0eff5;
+  --muted: #8887a0;
+  --accent: #7c6fcd;
+  --accent2: #a08cf0;
+  --accent3: #4eebb8;
+  --accent4: #f0b962;
+  --card: #13131a;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Syne', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+
+/* NOISE TEXTURE OVERLAY */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* HEADER */
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 3rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(10,10,15,0.85);
+  backdrop-filter: blur(16px);
+}
+.logo {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+.logo span { color: var(--accent2); }
+nav { display: flex; gap: 2rem; }
+nav a {
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+nav a:hover { color: var(--text); }
+.badge-available {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--accent3);
+  border: 1px solid rgba(78,235,184,0.25);
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  letter-spacing: 0.05em;
+}
+.badge-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent3);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 8rem 3rem 4rem;
+  position: relative;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+  align-items: center;
+}
+.hero-glow {
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124,111,205,0.12) 0%, transparent 70%);
+  top: 50%; left: 30%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.hero-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--accent2);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+h1 {
+  font-size: clamp(2.8rem, 5vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+h1 .highlight {
+  background: linear-gradient(135deg, var(--accent2), var(--accent3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-desc {
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.75;
+  margin-bottom: 2rem;
+  max-width: 480px;
+}
+.hero-ctas {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.6rem;
+  border-radius: 8px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  font-size: 0.88rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+.btn-ghost {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border2);
+}
+.btn-ghost:hover { color: var(--text); border-color: var(--border2); transform: translateY(-2px); }
+
+/* STATS SIDE */
+.hero-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.stat-card:hover { border-color: var(--border2); transform: translateY(-3px); }
+.stat-card.wide { grid-column: span 2; }
+.stat-num {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+.stat-num span { color: var(--accent2); }
+.stat-label {
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.8rem;
+}
+.tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  background: rgba(124,111,205,0.12);
+  color: var(--accent2);
+  border: 1px solid rgba(124,111,205,0.2);
+}
+.tag.green {
+  background: rgba(78,235,184,0.08);
+  color: var(--accent3);
+  border-color: rgba(78,235,184,0.2);
+}
+.tag.amber {
+  background: rgba(240,185,98,0.08);
+  color: var(--accent4);
+  border-color: rgba(240,185,98,0.2);
+}
+
+/* SECTION COMMON */
+section {
+  padding: 6rem 3rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--accent2);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+h2 {
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 3rem;
+  line-height: 1.1;
+}
+
+/* PROJECTS */
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.project-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2rem;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.project-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: 20px;
+}
+.project-card.p1::before { background: radial-gradient(circle at top left, rgba(124,111,205,0.08), transparent 60%); }
+.project-card.p2::before { background: radial-gradient(circle at top left, rgba(78,235,184,0.06), transparent 60%); }
+.project-card.p3::before { background: radial-gradient(circle at top left, rgba(240,185,98,0.06), transparent 60%); }
+.project-card.p4::before { background: radial-gradient(circle at top left, rgba(160,140,240,0.08), transparent 60%); }
+.project-card:hover { border-color: var(--border2); transform: translateY(-4px); }
+.project-card:hover::before { opacity: 1; }
+.project-card.featured { grid-column: span 2; }
+.project-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 1.2rem;
+}
+.project-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+.project-card p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 1.2rem;
+}
+.project-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+.project-stack {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+.proj-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  background: var(--bg3);
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+.project-link {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 1rem;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.project-link:hover { color: var(--text); border-color: var(--accent); }
+
+/* SKILLS */
+.skills-section {
+  padding: 6rem 3rem;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.skills-section > div {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.skill-group {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+.skill-group-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--border);
+}
+.skill-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+}
+.skill-name {
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+.skill-bar {
+  width: 80px;
+  height: 4px;
+  background: var(--bg3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.skill-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transition: width 1s ease;
+}
+
+/* EXPERIENCE */
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 3rem;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -2.35rem;
+  top: 0.4rem;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--accent2);
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 0 4px rgba(160,140,240,0.15);
+}
+.timeline-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--accent2);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.4rem;
+}
+.timeline-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+.timeline-sub {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 0.8rem;
+}
+.timeline-desc {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.timeline-desc li {
+  margin-bottom: 0.3rem;
+  padding-left: 1rem;
+  position: relative;
+  list-style: none;
+}
+.timeline-desc li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+/* CONTACT */
+.contact-section {
+  text-align: center;
+  padding: 8rem 3rem;
+}
+.contact-card {
+  max-width: 640px;
+  margin: 0 auto;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+.contact-card::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: 50%;
+  transform: translateX(-50%);
+  width: 400px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124,111,205,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+.contact-card h2 { margin-bottom: 0.8rem; font-size: 2rem; }
+.contact-card p { color: var(--muted); font-size: 0.95rem; margin-bottom: 2rem; }
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.4rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid var(--border2);
+  color: var(--muted);
+  transition: all 0.2s;
+  letter-spacing: 0.03em;
+}
+.contact-link:hover { color: var(--text); border-color: var(--accent); transform: translateY(-2px); }
+.contact-link.primary { background: var(--accent); color: #fff; border-color: transparent; }
+.contact-link.primary:hover { background: var(--accent2); }
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 2rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+}
+
+/* DIVIDER */
+.section-divider {
+  max-width: 1100px;
+  margin: 0 auto;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up {
+  animation: fadeUp 0.7s ease forwards;
+  opacity: 0;
+}
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.25s; }
+.delay-3 { animation-delay: 0.4s; }
+.delay-4 { animation-delay: 0.55s; }
+.delay-5 { animation-delay: 0.7s; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  header { padding: 1rem 1.5rem; }
+  nav { display: none; }
+  .hero { padding: 6rem 1.5rem 3rem; }
+  .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  section { padding: 4rem 1.5rem; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .project-card.featured { grid-column: span 1; }
+  .skills-section { padding: 4rem 1.5rem; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+}
+</style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-brand">Mohamed Dieng</div>
-            <ul class="nav-menu">
-                <li><a href="#accueil">Accueil</a></li>
-                <li><a href="#about">À propos</a></li>
-                <li><a href="#projets">Projets</a></li>
-                <li><a href="#competences">Compétences</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <div class="burger">
-                <div class="line1"></div>
-                <div class="line2"></div>
-                <div class="line3"></div>
-            </div>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">MD<span>.</span></div>
+  <nav>
+    <a href="#projets">Projets</a>
+    <a href="#competences">Compétences</a>
+    <a href="#experience">Expérience</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="badge-available">
+    <div class="badge-dot"></div>
+    Alternance sept. 2026
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="accueil">
+  <div class="hero-glow"></div>
+  <div class="hero-grid">
+    <div>
+      <p class="hero-label fade-up delay-1">Data Engineering · AI/ML · Géospatial</p>
+      <h1 class="fade-up delay-2">Mohamed<br><span class="highlight">Dieng</span></h1>
+      <p class="hero-desc fade-up delay-3">
+        Ingénieur IA & Data en formation à UTC Compiègne (Bac+5). Je construis des pipelines de données robustes, des systèmes RAG et des solutions ML déployées en production.
+      </p>
+      <div class="hero-ctas fade-up delay-4">
+        <a href="mailto:mouhameddieng416@gmail.com" class="btn btn-primary">Me contacter →</a>
+        <a href="https://github.com/MDIENG158" target="_blank" class="btn btn-ghost">GitHub ↗</a>
+      </div>
+    </div>
+    <div class="hero-stats fade-up delay-5">
+      <div class="stat-card">
+        <div class="stat-num">20<span>+</span></div>
+        <div class="stat-label">Bases PostgreSQL migrées</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">0.98</div>
+        <div class="stat-label">AUC-ROC fraud detection</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">5<span>+</span></div>
+        <div class="stat-label">Projets ML/Data déployés</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">Bac<span>+5</span></div>
+        <div class="stat-label">UTC Compiègne — IA & Data</div>
+      </div>
+      <div class="stat-card wide">
+        <div class="stat-label" style="margin-bottom:0.6rem">Stack principale</div>
+        <div class="tag-list">
+          <span class="tag">Python</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Docker</span>
+          <span class="tag">LangChain</span>
+          <span class="tag green">FastAPI</span>
+          <span class="tag green">MLflow</span>
+          <span class="tag amber">QGIS</span>
+          <span class="tag amber">GeoServer</span>
         </div>
-    </nav>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Hero Section -->
-    <section id="accueil" class="hero">
-        <div class="container hero-content">
-            <div class="hero-text">
-                <h1>Mohamed Dieng</h1>
-                <h2>Ingénieur IA & Data Science</h2>
-                <p>Étudiant en dernière année à l'UTC, spécialisé en Intelligence Artificielle, Machine Learning et développement full stack.</p>
-                <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary">Me contacter</a>
-                    <a href="cv_mohamed_dieng_alternance_ia.pdf" class="btn btn-secondary" download>
-                        <i class="fas fa-download"></i> Télécharger CV
-                    </a>
-                </div>
-                <div class="social-links">
-                    <a href="mailto:mouhameddieng416@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
-                    <a href="https://www.linkedin.com/in/mohamed-dieng-9a7aa5303/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://github.com/MDIENG158" target="_blank"><i class="fab fa-github"></i></a>
-                </div>
-            </div>
-            <div class="hero-image">
-                <img src="photo.jpg" alt="Mohamed Dieng">
-            </div>
+<!-- PROJETS -->
+<section id="projets">
+  <p class="section-label">// projets sélectionnés</p>
+  <h2>Ce que j'ai construit</h2>
+  <div class="projects-grid">
+
+    <!-- Projet 1 : LiDAR Pipeline -->
+    <div class="project-card p1 featured">
+      <div class="project-icon" style="background:rgba(124,111,205,0.12);">🛰️</div>
+      <h3>Pipeline LiDAR IGN HD — PNROPF</h3>
+      <p>
+        Pipeline complet de traitement de données LiDAR haute densité (IGN HD) pour le Parc Naturel Régional Oise-Pays de France. Génération de MNT, MNS, MNE colorisés par classe de points, interpolation IDW avec masque de présence strict. Interface Streamlit Dockerisée pour utilisateurs non-techniques.
+      </p>
+      <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
+        <div class="project-stack">
+          <span class="proj-tag">Python</span>
+          <span class="proj-tag">laspy</span>
+          <span class="proj-tag">rasterio</span>
+          <span class="proj-tag">scipy</span>
+          <span class="proj-tag">Streamlit</span>
+          <span class="proj-tag">Docker</span>
+          <span class="proj-tag">GDAL</span>
         </div>
-    </section>
+        <span style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent3);border:1px solid rgba(78,235,184,0.2);padding:0.2rem 0.6rem;border-radius:4px;">Stage 2026</span>
+      </div>
+    </div>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">À propos de moi</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>
-                        Étudiant en dernière année d'Ingénieur Informatique à l'Université de Technologie de Compiègne (UTC), 
-                        je me spécialise en Intelligence Artificielle et Data Science. Passionné par le Machine Learning, 
-                        le Deep Learning et les architectures neuronales, j'ai développé une solide expertise en développement 
-                        d'algorithmes prédictifs et systèmes intelligents.
-                    </p>
-                    <p>
-                        Je recherche actuellement une <strong>alternance de 12 mois à partir de septembre 2026</strong> 
-                        pour approfondir mes compétences en IA appliquée et contribuer à des projets innovants à forte valeur ajoutée.
-                    </p>
-                    <div class="about-stats">
-                        <div class="stat">
-                            <h3>4+</h3>
-                            <p>Projets IA</p>
-                        </div>
-                        <div class="stat">
-                            <h3>3</h3>
-                            <p>Langages maîtrisés</p>
-                        </div>
-                        <div class="stat">
-                            <h3>12 mois</h3>
-                            <p>Alternance recherchée</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-info">
-                    <div class="info-item">
-                        <i class="fas fa-graduation-cap"></i>
-                        <div>
-                            <h4>Formation</h4>
-                            <p>UTC - Génie Informatique</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h4>Localisation</h4>
-                            <p>Compiègne, France</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-briefcase"></i>
-                        <div>
-                            <h4>Disponibilité</h4>
-                            <p>Septembre 2026</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-globe"></i>
-                        <div>
-                            <h4>Mobilité</h4>
-                            <p>Nationale & Internationale</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Projet 2 : RAG -->
+    <div class="project-card p2">
+      <div class="project-icon" style="background:rgba(78,235,184,0.08);">🧠</div>
+      <h3>Système RAG — Charte PNR</h3>
+      <p>
+        Système de questions-réponses sur les documents de révision de charte du Parc. LangChain + FAISS + Ollama (llama3.2) + Streamlit. Ingestion parallèle via ThreadPoolExecutor, retriever MMR (k=8). Démo via AnythingLLM en Docker.
+      </p>
+      <div class="project-meta">
+        <div class="project-stack">
+          <span class="proj-tag">LangChain</span>
+          <span class="proj-tag">FAISS</span>
+          <span class="proj-tag">Ollama</span>
+          <span class="proj-tag">Streamlit</span>
         </div>
-    </section>
+        <a href="https://github.com/MDIENG158" target="_blank" class="project-link">↗</a>
+      </div>
+    </div>
 
-    <!-- Projets Section -->
-    <section id="projets" class="projets">
-        <div class="container">
-            <h2 class="section-title">Mes Projets</h2>
-            <div class="projets-grid">
-                <div class="projet-card">
-                    <div class="projet-icon">
-                        <i class="fas fa-server"></i>
-                    </div>
-                    <h3>Administration Serveur & DevOps</h3>
-                    <p class="projet-date">Février - Juillet 2026 | Parc Naturel Régional</p>
-                    <p>Gestion de serveurs Linux hébergeant des applications géographiques. Automatisation du déploiement avec Docker et CI/CD.</p>
-                    <div class="projet-tags">
-                        <span>Linux</span>
-                        <span>Docker</span>
-                        <span>PostgreSQL</span>
-                        <span>CI/CD</span>
-                    </div>
-                </div>
-
-                <div class="projet-card">
-                    <div class="projet-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3>Système Expert SAMU</h3>
-                    <p class="projet-date">Décembre 2024 | UTC</p>
-                    <p>Développement d'un algorithme de classification pour prioriser les urgences médicales avec interface graphique intuitive.</p>
-                    <div class="projet-tags">
-                        <span>Python</span>
-                        <span>Scikit-learn</span>
-                        <span>ML</span>
-                        <span>Classification</span>
-                    </div>
-                </div>
-
-                <div class="projet-card">
-                    <div class="projet-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Plateforme de Gestion de Candidatures</h3>
-                    <p class="projet-date">Mars - Juin 2025 | UTC</p>
-                    <p>Application web full stack avec système de matching intelligent et algorithmes de recommandation avancés.</p>
-                    <div class="projet-tags">
-                        <span>Node.js</span>
-                        <span>MongoDB</span>
-                        <span>API REST</span>
-                        <span>Bootstrap</span>
-                    </div>
-                </div>
-
-                <div class="projet-card">
-                    <div class="projet-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Analyse Prédictive - ML</h3>
-                    <p class="projet-date">Sept. 2023 - Juin 2024 | TIPE</p>
-                    <p>Modélisation prédictive de l'usure des freins en compétition automobile utilisant régression et forêts aléatoires.</p>
-                    <div class="projet-tags">
-                        <span>Python</span>
-                        <span>Pandas</span>
-                        <span>Scikit-learn</span>
-                        <span>R</span>
-                    </div>
-                </div>
-
-                <div class="projet-card">
-                    <div class="projet-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>Système de Gestion BDD</h3>
-                    <p class="projet-date">Novembre 2024 | UTC</p>
-                    <p>Modélisation de schémas complexes et optimisation de requêtes SQL pour gestion de données massives.</p>
-                    <div class="projet-tags">
-                        <span>PostgreSQL</span>
-                        <span>SQL</span>
-                        <span>Optimisation</span>
-                    </div>
-                </div>
-
-                <div class="projet-card">
-                    <div class="projet-icon">
-                        <i class="fas fa-running"></i>
-                    </div>
-                    <h3>Agent d'Accueil SNCF - JO 2024</h3>
-                    <p class="projet-date">Juin - Sept. 2024 | SNCF</p>
-                    <p>Coordination d'équipe et gestion des flux de voyageurs internationaux durant les Jeux Olympiques.</p>
-                    <div class="projet-tags">
-                        <span>Gestion</span>
-                        <span>Communication</span>
-                        <span>Coordination</span>
-                    </div>
-                </div>
-            </div>
+    <!-- Projet 3 : Fraud Detection -->
+    <div class="project-card p3">
+      <div class="project-icon" style="background:rgba(240,185,98,0.08);">📊</div>
+      <h3>Détection de fraude — XGBoost</h3>
+      <p>
+        Modèle de classification sur données bancaires déséquilibrées. XGBoost + SMOTE, AUC-ROC 0.98. Optimisation des hyperparamètres, validation croisée, rapport de classification complet.
+      </p>
+      <div class="project-meta">
+        <div class="project-stack">
+          <span class="proj-tag">XGBoost</span>
+          <span class="proj-tag">SMOTE</span>
+          <span class="proj-tag">Scikit-learn</span>
         </div>
-    </section>
+        <a href="https://github.com/MDIENG158" target="_blank" class="project-link">↗</a>
+      </div>
+    </div>
 
-    <!-- Compétences Section -->
-    <section id="competences" class="competences">
-        <div class="container">
-            <h2 class="section-title">Compétences Techniques</h2>
-            <div class="competences-grid">
-                <div class="competence-category">
-                    <h3><i class="fas fa-robot"></i> IA & Machine Learning</h3>
-                    <div class="skills">
-                        <div class="skill">
-                            <span>Python (expert)</span>
-                            <div class="skill-bar"><div class="skill-level" style="width: 95%"></div></div>
-                        </div>
-                        <div class="skill">
-                            <span>Scikit-learn, TensorFlow, Keras</span>
-                            <div class="skill-bar"><div class="skill-level" style="width: 90%"></div></div>
-                        </div>
-                        <div class="skill">
-                            <span>CNN, RNN, LSTM</span>
-                            <div class="skill-bar"><div class="skill-level" style="width: 85%"></div></div>
-                        </div>
-                        <div class="skill">
-                            <span>OpenCV, Computer Vision</span>
-                            <div class="skill-bar"><div class="skill-level" style="width: 80%"></div></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="competence-category">
-                    <h3><i class="fas fa-chart-bar"></i> Data Science</h3>
-                    <div class="skills">
-                        <div class="skill">
-                            <span>Pandas, NumPy</span>
-                            <div class="skill-bar"><div class="skill-level" style="width: 90%"></div></div>
-                        </div>
-                        <div class="skill">
-                            <span>Matplotlib, Seaborn</span>
-                            <div class="skill-bar"><div class="skill-level" style="width: 85%"></div></div>
-                        </div>
-                        <div class="skill">
-                            <span>Power BI, Tableau</span>
-                            <div class="skill-bar"><div class="skill-level" style="width: 80%"></div></div>
-                        </div>
-                        <div class="skill">
-                            <span>Big Data</span>
-                            <div class="skill-bar"><div class="skill-level" style="width: 75%"></div></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="competence-category">
-                    <h3><i class="fas fa-code"></i> Développement</h3>
-                    <div class="skills">
-                        <div class="skill">
-                            <span>JavaScript, Node.js</span>
-                            <div class="skill-bar"><div class="skill-level" style="width: 85%"></div></div>
-                        </div>
-                        <div class="skill">
-                            <span>SQL, PostgreSQL, MongoDB</span>
-                            <div class="skill-bar"><div class="skill-level" style="width: 90%"></div></div>
-                        </div>
-                        <div class="skill">
-                            <span>API REST, Express.js</span>
-                            <div class="skill-bar"><div class="skill-level" style="width: 85%"></div></div>
-                        </div>
-                        <div class="skill">
-                            <span>HTML/CSS, Bootstrap</span>
-                            <div class="skill-bar"><div class="skill-level" style="width: 80%"></div></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="competence-category">
-                    <h3><i class="fas fa-tools"></i> DevOps & Outils</h3>
-                    <div class="skills">
-                        <div class="skill">
-                            <span>Docker</span>
-                            <div class="skill-bar"><div class="skill-level" style="width: 85%"></div></div>
-                        </div>
-                        <div class="skill">
-                            <span>Git/GitHub</span>
-                            <div class="skill-bar"><div class="skill-level" style="width: 90%"></div></div>
-                        </div>
-                        <div class="skill">
-                            <span>Linux (Ubuntu/Debian)</span>
-                            <div class="skill-bar"><div class="skill-level" style="width: 85%"></div></div>
-                        </div>
-                        <div class="skill">
-                            <span>CI/CD, Nginx</span>
-                            <div class="skill-bar"><div class="skill-level" style="width: 80%"></div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="langues">
-                <h3>Langues</h3>
-                <div class="langue-list">
-                    <div class="langue-item">
-                        <i class="fas fa-language"></i>
-                        <span><strong>Français</strong> - Natif (C2)</span>
-                    </div>
-                    <div class="langue-item">
-                        <i class="fas fa-language"></i>
-                        <span><strong>Anglais</strong> - Technique (B2)</span>
-                    </div>
-                    <div class="langue-item">
-                        <i class="fas fa-language"></i>
-                        <span><strong>Wolof</strong> - Courant</span>
-                    </div>
-                </div>
-            </div>
+    <!-- Projet 4 : Predictive Maintenance -->
+    <div class="project-card p4">
+      <div class="project-icon" style="background:rgba(160,140,240,0.1);">⚙️</div>
+      <h3>Maintenance prédictive — MLflow</h3>
+      <p>
+        Classifieur Random Forest pour prédiction de pannes industrielles. F1=0.94. API REST FastAPI, conteneurisation Docker, tracking MLflow pour reproducibilité des expériences.
+      </p>
+      <div class="project-meta">
+        <div class="project-stack">
+          <span class="proj-tag">Random Forest</span>
+          <span class="proj-tag">FastAPI</span>
+          <span class="proj-tag">MLflow</span>
+          <span class="proj-tag">Docker</span>
         </div>
-    </section>
+        <a href="https://github.com/MDIENG158" target="_blank" class="project-link">↗</a>
+      </div>
+    </div>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Me Contacter</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Restons en contact !</h3>
-                    <p>Je suis actuellement à la recherche d'une alternance de 12 mois à partir de septembre 2026. N'hésitez pas à me contacter pour discuter d'opportunités ou de collaborations.</p>
-                    
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <div>
-                                <h4>Email</h4>
-                                <a href="mailto:mouhameddieng416@gmail.com">mouhameddieng416@gmail.com</a>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <div>
-                                <h4>Téléphone</h4>
-                                <a href="tel:+33745078292">07 45 07 82 92</a>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fab fa-linkedin"></i>
-                            <div>
-                                <h4>LinkedIn</h4>
-                                <a href="https://www.linkedin.com/in/mohamed-dieng-9a7aa5303/" target="_blank">Mohamed Dieng</a>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fab fa-github"></i>
-                            <div>
-                                <h4>GitHub</h4>
-                                <a href="https://github.com/MDIENG158" target="_blank">MDIENG158</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Votre nom" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="Votre email" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="subject" name="subject" placeholder="Sujet" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="message" name="message" rows="5" placeholder="Votre message" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-paper-plane"></i> Envoyer le message
-                        </button>
-                    </form>
-                </div>
-            </div>
+    <!-- Projet 5 : Migration PG -->
+    <div class="project-card p1">
+      <div class="project-icon" style="background:rgba(124,111,205,0.12);">🗄️</div>
+      <h3>Migration PostgreSQL 9.6 → 15</h3>
+      <p>
+        Migration de 20+ bases de données sur serveur de production. pg_dumpall, comparaison DBeaver, adaptation des schémas et fonctions dépréciées. Zéro perte de données.
+      </p>
+      <div class="project-meta">
+        <div class="project-stack">
+          <span class="proj-tag">PostgreSQL</span>
+          <span class="proj-tag">PostGIS</span>
+          <span class="proj-tag">DBeaver</span>
         </div>
-    </section>
+        <a href="https://github.com/MDIENG158" target="_blank" class="project-link">↗</a>
+      </div>
+    </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 Mohamed Dieng - Tous droits réservés</p>
-            <div class="footer-links">
-                <a href="mailto:mouhameddieng416@gmail.com"><i class="fas fa-envelope"></i></a>
-                <a href="https://www.linkedin.com/in/mohamed-dieng-9a7aa5303/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="https://github.com/MDIENG158" target="_blank"><i class="fab fa-github"></i></a>
-            </div>
+    <!-- Projet 6 : CNN Plants -->
+    <div class="project-card p2">
+      <div class="project-icon" style="background:rgba(78,235,184,0.08);">🌿</div>
+      <h3>Classifier maladies végétales — CNN</h3>
+      <p>
+        Réseau de neurones convolutif sur le dataset PlantVillage. Transfer learning TensorFlow/Keras. Détection de 38 classes de maladies avec data augmentation.
+      </p>
+      <div class="project-meta">
+        <div class="project-stack">
+          <span class="proj-tag">TensorFlow</span>
+          <span class="proj-tag">Keras</span>
+          <span class="proj-tag">CNN</span>
         </div>
-    </footer>
+        <a href="https://github.com/MDIENG158" target="_blank" class="project-link">↗</a>
+      </div>
+    </div>
 
-    <script src="script.js"></script>
+  </div>
+</section>
+
+<!-- COMPÉTENCES -->
+<div class="skills-section" id="competences">
+  <div>
+    <p class="section-label">// compétences techniques</p>
+    <h2>Mon stack</h2>
+    <div class="skills-grid">
+
+      <div class="skill-group">
+        <div class="skill-group-title">🐍 Data & Python</div>
+        <div class="skill-item"><span class="skill-name">Python</span><div class="skill-bar"><div class="skill-fill" style="width:92%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Pandas / NumPy</span><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Scikit-learn</span><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">TensorFlow / Keras</span><div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">XGBoost / LightGBM</span><div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div></div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">🗄️ Data Engineering</div>
+        <div class="skill-item"><span class="skill-name">PostgreSQL / PostGIS</span><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Docker / Compose</span><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">FastAPI</span><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">MLflow</span><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Git / Linux</span><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div></div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">🤖 IA Générative & Géospatial</div>
+        <div class="skill-item"><span class="skill-name">LangChain / RAG</span><div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">FAISS / Ollama</span><div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">QGIS / GeoServer</span><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">laspy / rasterio</span><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Streamlit</span><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label">// parcours</p>
+  <h2>Expérience & Formation</h2>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-date">Fév. 2026 — Juil. 2026</div>
+      <div class="timeline-title">Stagiaire Ingénieur Informatique SIG</div>
+      <div class="timeline-sub">Parc Naturel Régional Oise-Pays de France · Orry-la-Ville</div>
+      <ul class="timeline-desc">
+        <li>Pipeline LiDAR IGN HD : MNT, MNS, MNE colorisés par classe (laspy, rasterio, scipy)</li>
+        <li>Migration PostgreSQL 9.6→15 sur 20+ bases de données de production</li>
+        <li>Système RAG sur documents de charte (LangChain, FAISS, Ollama, Streamlit)</li>
+        <li>Administration GeoServer 2.20→2.27, Apache, GeoNature — résolution bugs production</li>
+        <li>Intégration Matomo Analytics dans GeoNature-Atlas</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date">2022 — 2027 (en cours)</div>
+      <div class="timeline-title">Diplôme d'Ingénieur — IA & Data Science</div>
+      <div class="timeline-sub">UTC Compiègne · Spécialisation Informatique, filière IA/Data</div>
+      <ul class="timeline-desc">
+        <li>Machine Learning, Deep Learning, Traitement du signal, Statistiques</li>
+        <li>Projets : fraud detection (AUC 0.98), maintenance prédictive (F1=0.94), CNN PlantVillage</li>
+        <li>Background CPGE PSI — mathématiques & physique appliquées</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date">Exploration personnelle</div>
+      <div class="timeline-title">Freelance & Side Projects</div>
+      <div class="timeline-sub">IA Générative · RAG · Micro-SaaS · Intégrations API</div>
+      <ul class="timeline-desc">
+        <li>Profil Malt — niche RAG/LLM pour startups (500–800€/jour)</li>
+        <li>Programme auto-formation RAG : LangChain + ChromaDB + Ollama (8 semaines)</li>
+        <li>CRM Audit Tool sur HubSpot OAuth (Node.js)</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div class="contact-card">
+    <p class="section-label" style="margin-bottom:0.8rem;">// disponible dès sept. 2026</p>
+    <h2>Travaillons ensemble</h2>
+    <p>Je recherche une alternance de 12 mois en Data Engineering ou AI/ML en Île-de-France. Disponible pour un échange.</p>
+    <div class="contact-links">
+      <a href="mailto:mouhameddieng416@gmail.com" class="contact-link primary">✉ mouhameddieng416@gmail.com</a>
+      <a href="https://linkedin.com/in/mohamed-dieng-9a7aa5303" target="_blank" class="contact-link">LinkedIn ↗</a>
+      <a href="https://github.com/MDIENG158" target="_blank" class="contact-link">GitHub ↗</a>
+      <a href="https://mdieng158.github.io/candidature" target="_blank" class="contact-link">Portfolio ↗</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Mohamed Dieng · UTC Compiègne · Bac+5 IA & Data Science</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.project-card, .skill-group, .timeline-item, .stat-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
+</script>
 </body>
 </html>
