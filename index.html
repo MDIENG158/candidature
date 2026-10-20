@@ -575,7 +575,7 @@ footer {
   </nav>
   <div class="badge-available">
     <div class="badge-dot"></div>
-    Alternance sept. 2026
+    Stage PFE · fév. 2027
   </div>
 </header>
 
@@ -587,11 +587,12 @@ footer {
       <p class="hero-label fade-up delay-1">Data Engineering · AI/ML · Géospatial</p>
       <h1 class="fade-up delay-2">Mohamed<br><span class="highlight">Dieng</span></h1>
       <p class="hero-desc fade-up delay-3">
-        Ingénieur IA & Data en formation à UTC Compiègne (Bac+5). Je construis des pipelines de données robustes, des systèmes RAG et des solutions ML déployées en production.
+        Élève-ingénieur IA & Data à l'UTC Compiègne (diplôme 2027). Je construis des pipelines de données robustes, des systèmes RAG locaux et des solutions ML déployées en production.
       </p>
       <div class="hero-ctas fade-up delay-4">
         <a href="mailto:mouhameddieng416@gmail.com" class="btn btn-primary">Me contacter →</a>
         <a href="https://github.com/MDIENG158" target="_blank" class="btn btn-ghost">GitHub ↗</a>
+        <a href="cv_mohamed_dieng_stage_pfe_2027.pdf" target="_blank" class="btn btn-ghost">CV (PDF) ↓</a>
       </div>
     </div>
     <div class="hero-stats fade-up delay-5">
@@ -604,12 +605,12 @@ footer {
         <div class="stat-label">AUC-ROC fraud detection</div>
       </div>
       <div class="stat-card">
-        <div class="stat-num">5<span>+</span></div>
-        <div class="stat-label">Projets ML/Data déployés</div>
+        <div class="stat-num">6</div>
+        <div class="stat-label">Projets ML / Data</div>
       </div>
       <div class="stat-card">
-        <div class="stat-num">Bac<span>+5</span></div>
-        <div class="stat-label">UTC Compiègne — IA & Data</div>
+        <div class="stat-num">20<span>27</span></div>
+        <div class="stat-label">Diplôme d'ingénieur — UTC, IA & Data</div>
       </div>
       <div class="stat-card wide">
         <div class="stat-label" style="margin-bottom:0.6rem">Stack principale</div>
@@ -639,11 +640,12 @@ footer {
       <div class="project-icon" style="background:rgba(124,111,205,0.12);">🛰️</div>
       <h3>Pipeline LiDAR IGN HD — PNROPF</h3>
       <p>
-        Pipeline complet de traitement de données LiDAR haute densité (IGN HD) pour le Parc Naturel Régional Oise-Pays de France. Génération de MNT, MNS, MNE colorisés par classe de points, interpolation IDW avec masque de présence strict. Interface Streamlit Dockerisée pour utilisateurs non-techniques.
+        Pipeline de traitement de données LiDAR haute densité (IGN HD, fichiers COPC/LAZ) pour le Parc Naturel Régional Oise-Pays de France, exécuté sur 1 428 dalles (≈ 280 Go). Rasterisation PDAL (TIN pour le MNT, IDW sous forêt dense), MNS, MNE, hillshade multi-directionnel (rvt-py), classification colorée et mosaïque VRT. Parallélisation : ×6,9 avec 8 workers. Validation sur 12 dalles : RMSE du MNT de 15 à 25 cm face à la BD ALTI 5 m. Interface Streamlit dockerisée pour utilisateurs non-techniques.
       </p>
       <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
         <div class="project-stack">
           <span class="proj-tag">Python</span>
+          <span class="proj-tag">PDAL</span>
           <span class="proj-tag">laspy</span>
           <span class="proj-tag">rasterio</span>
           <span class="proj-tag">scipy</span>
@@ -660,14 +662,14 @@ footer {
       <div class="project-icon" style="background:rgba(78,235,184,0.08);">🧠</div>
       <h3>Système RAG — Charte PNR</h3>
       <p>
-        Système de questions-réponses sur les documents de révision de charte du Parc. LangChain + FAISS + Ollama (llama3.2) + Streamlit. Ingestion parallèle via ThreadPoolExecutor, retriever MMR (k=8). Démo via AnythingLLM en Docker.
+        Assistant de questions-réponses 100 % local sur 380 PDF de la charte du Parc : API FastAPI (/query, /upload, /health), embeddings sentence-transformers, index FAISS et ChromaDB, recherche MMR, génération avec Ollama (llama3.2) et sources citées dans l'interface de chat. Aucune dépendance à une API cloud (confidentialité et budget).
       </p>
       <div class="project-meta">
         <div class="project-stack">
-          <span class="proj-tag">LangChain</span>
+          <span class="proj-tag">FastAPI</span>
           <span class="proj-tag">FAISS</span>
+          <span class="proj-tag">ChromaDB</span>
           <span class="proj-tag">Ollama</span>
-          <span class="proj-tag">Streamlit</span>
         </div>
         <a href="https://github.com/MDIENG158" target="_blank" class="project-link">↗</a>
       </div>
@@ -713,7 +715,7 @@ footer {
       <div class="project-icon" style="background:rgba(124,111,205,0.12);">🗄️</div>
       <h3>Migration PostgreSQL 9.6 → 15</h3>
       <p>
-        Migration de 20+ bases de données sur serveur de production. pg_dumpall, comparaison DBeaver, adaptation des schémas et fonctions dépréciées. Zéro perte de données.
+        Migration de 20+ bases de données sur serveur de production : pg_dump/pg_restore, extensions PostGIS et pgcrypto, passage à scram-sha-256 avec reconfiguration de chaque client, arrêt de service de moins d'une heure, jointures spatiales plus rapides et procédure documentée.
       </p>
       <div class="project-meta">
         <div class="project-stack">
@@ -794,11 +796,12 @@ footer {
       <div class="timeline-title">Stagiaire Ingénieur Informatique SIG</div>
       <div class="timeline-sub">Parc Naturel Régional Oise-Pays de France · Orry-la-Ville</div>
       <ul class="timeline-desc">
-        <li>Pipeline LiDAR IGN HD : MNT, MNS, MNE colorisés par classe (laspy, rasterio, scipy)</li>
-        <li>Migration PostgreSQL 9.6→15 sur 20+ bases de données de production</li>
-        <li>Système RAG sur documents de charte (LangChain, FAISS, Ollama, Streamlit)</li>
-        <li>Administration GeoServer 2.20→2.27, Apache, GeoNature — résolution bugs production</li>
-        <li>Intégration Matomo Analytics dans GeoNature-Atlas</li>
+        <li>Assistant RAG 100 % local sur 380 PDF de la charte (FastAPI, FAISS/ChromaDB, Ollama)</li>
+        <li>Pipeline LiDAR IGN HD sur 1 428 dalles : PDAL, laspy, rasterio, rvt-py, parallélisation ×6,9</li>
+        <li>Migration PostgreSQL 9.6→15 sur 20+ bases de production, scripts PL/pgSQL (traçabilité, code INSEE)</li>
+        <li>Migration GeoServer 2.20→2.27, correction d'un conflit Apache ProxyPass sur l'Atlas GeoNature, Matomo</li>
+        <li>Application web FastAPI d'études et actions, import INSEE Mélodi, 60+ fiches communes PDF automatisées</li>
+        <li>Widget BAM (Vue.js) intégré au portail Geotrek-rando</li>
       </ul>
     </div>
 
@@ -810,6 +813,7 @@ footer {
         <li>Machine Learning, Deep Learning, Traitement du signal, Statistiques</li>
         <li>Projets : fraud detection (AUC 0.98), maintenance prédictive (F1=0.94), CNN PlantVillage</li>
         <li>Background CPGE PSI — mathématiques & physique appliquées</li>
+        <li>Langues : Français (C2) · Anglais (B2)</li>
       </ul>
     </div>
 
@@ -830,9 +834,9 @@ footer {
 <!-- CONTACT -->
 <div class="contact-section" id="contact">
   <div class="contact-card">
-    <p class="section-label" style="margin-bottom:0.8rem;">// disponible dès sept. 2026</p>
+    <p class="section-label" style="margin-bottom:0.8rem;">// disponible à partir de fév. 2027</p>
     <h2>Travaillons ensemble</h2>
-    <p>Je recherche une alternance de 12 mois en Data Engineering ou AI/ML en Île-de-France. Disponible pour un échange.</p>
+    <p>Je recherche un stage de fin d'études en IA générative, Data Engineering ou ML, en Île-de-France, à partir de février 2027. Disponible pour un échange.</p>
     <div class="contact-links">
       <a href="mailto:mouhameddieng416@gmail.com" class="contact-link primary">✉ mouhameddieng416@gmail.com</a>
       <a href="https://linkedin.com/in/mohamed-dieng-9a7aa5303" target="_blank" class="contact-link">LinkedIn ↗</a>
@@ -843,7 +847,7 @@ footer {
 </div>
 
 <footer>
-  <p>© 2026 Mohamed Dieng · UTC Compiègne · Bac+5 IA & Data Science</p>
+  <p>© 2026 Mohamed Dieng · UTC Compiègne · Diplôme d'ingénieur 2027 · IA & Data</p>
 </footer>
 
 <script>
