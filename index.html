@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-4ZeTJB7ouvTwQhXQOiPbQG9CP+/LmOEQgSj0MWfAGhg=' https://gc.zgo.at; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://mdieng.goatcounter.com; connect-src https://mdieng.goatcounter.com; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Mohamed Dieng, ingénieur données et IA</title>
+<meta name="description" content="Élève-ingénieur en 5ème année à l'UTC Compiègne, IA et données. Pipeline LiDAR sur 1 428 dalles, assistant documentaire sur 380 PDF, migrations PostgreSQL et GeoServer. Stage de fin d'études à partir de février 2027.">
+<meta property="og:title" content="Mohamed Dieng, ingénieur données et IA">
+<meta property="og:description" content="Chaînes de traitement de données, géospatial et assistants documentaires. Stage de fin d'études à partir de février 2027.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mdieng158.github.io/candidature/">
+<meta name="theme-color" content="#dadfd7">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sol: #dadfd7;        /* gris-vert d'un relief ombré */
+    --sol-clair: #eaeee7;
+    --encre: #0f1a14;
+    --encre-douce: #3f4d45;
+    --foret: #2d6a27;      /* palette hypsométrique du MNT du rapport */
+    --prairie: #5b9e44;
+    --ocre: #d4a847;
+    --argile: #b07d42;
+    --ecorce: #7a5130;
+    --titre: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --texte: "Newsreader", Georgia, "Times New Roman", serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--sol);
+    color: var(--encre);
+    font-family: var(--texte);
+    font-size: 1.125rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--foret); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:hover { color: var(--encre); }
+  :focus-visible { outline: 3px solid var(--encre); outline-offset: 3px; border-radius: 2px; }
+  .cadre { width: min(1120px, 100% - 2.5rem); margin-inline: auto; }
+
+  /* barre du haut */
+  .haut { display: flex; justify-content: space-between; align-items: baseline; padding: 1.4rem 0; gap: 1rem; flex-wrap: wrap; }
+  .marque { font-family: var(--titre); font-stretch: 125%; font-weight: 800; font-size: 1.15rem; text-decoration: none; color: var(--encre); letter-spacing: .01em; }
+  .haut nav { display: flex; gap: 1.6rem; font-family: var(--titre); font-weight: 500; font-size: .95rem; }
+  .haut nav a { color: var(--encre); text-decoration: none; padding: .2rem 0; border-bottom: 1px solid transparent; }
+  .haut nav a:hover { border-bottom-color: var(--encre); }
+
+  /* hero */
+  .hero { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr); gap: clamp(1.5rem, 4vw, 4rem); align-items: end; padding: clamp(1.5rem, 5vw, 4rem) 0 clamp(3rem, 7vw, 6rem); }
+  h1 {
+    margin: 0 0 1.6rem;
+    font-family: var(--titre);
+    font-stretch: 125%;
+    font-weight: 800;
+    font-size: clamp(2.6rem, 7.2vw, 6rem);
+    line-height: .94;
+    letter-spacing: -.012em;
+  }
+  h1 span { display: block; }
+  h1 span + span { margin-left: .55em; }
+  .accroche { font-size: clamp(1.2rem, 2.1vw, 1.45rem); line-height: 1.5; max-width: 34em; margin: 0 0 1.2rem; }
+  .dispo { max-width: 34em; margin: 0 0 1.8rem; color: var(--encre-douce); }
+  .liens { display: flex; flex-wrap: wrap; gap: .7rem 1.2rem; font-family: var(--titre); font-weight: 600; font-size: .98rem; }
+  .liens a.principal { background: var(--encre); color: var(--sol); padding: .7rem 1.1rem; text-decoration: none; border-radius: 2px; }
+  .liens a.principal:hover { background: var(--foret); color: #fff; }
+  .liens a:not(.principal) { align-self: center; }
+
+  figure.relief { margin: 0; }
+  #terrain { display: block; width: 100%; aspect-ratio: 1; background: var(--sol-clair); touch-action: pan-y; cursor: crosshair; border: 1px solid var(--encre); }
+  .legende-relief { display: grid; grid-template-columns: 1fr auto; gap: .35rem 1rem; margin-top: .7rem; font-family: var(--titre); font-size: .85rem; color: var(--encre-douce); }
+  .rampe { grid-column: 1 / -1; height: 10px; background: linear-gradient(90deg, #2d6a27, #5b9e44 25%, #a8c45a 45%, #d4a847 65%, #b07d42 82%, #7a5130); }
+  .legende-relief .lecture { color: var(--encre); font-weight: 600; font-variant-numeric: tabular-nums; }
+  figcaption { font-size: .98rem; line-height: 1.45; color: var(--encre-douce); margin-top: .6rem; max-width: 34em; }
+
+  /* sections */
+  section { padding: clamp(2.5rem, 6vw, 5rem) 0; border-top: 1px solid var(--encre); }
+  h2 { font-family: var(--titre); font-stretch: 112%; font-weight: 800; font-size: clamp(1.7rem, 3.6vw, 2.5rem); line-height: 1.05; margin: 0 0 1rem; letter-spacing: -.005em; }
+  .intro { max-width: 40em; margin: 0 0 2.4rem; color: var(--encre-douce); }
+  .cle { display: flex; flex-wrap: wrap; gap: .4rem 1.8rem; font-family: var(--titre); font-size: .92rem; margin: 0 0 3rem; }
+  .cle span { display: inline-flex; align-items: center; gap: .55rem; }
+  .cle i { width: 14px; height: 14px; display: inline-block; }
+
+  .realisation { border-left: 8px solid var(--foret); padding: .2rem 0 .2rem clamp(1rem, 3vw, 2.2rem); margin: 0 0 3.6rem; }
+  .realisation.perso { border-left-color: var(--ocre); }
+  .realisation:last-child { margin-bottom: 0; }
+  h3 { font-family: var(--titre); font-stretch: 108%; font-weight: 700; font-size: clamp(1.3rem, 2.4vw, 1.7rem); line-height: 1.15; margin: 0 0 .6rem; }
+  .realisation p { max-width: 42em; margin: 0 0 1rem; }
+  .realisation ul { list-style: none; margin: 0 0 1rem; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: .55rem 2rem; max-width: 52rem; }
+  .realisation li { position: relative; padding-left: 1.1rem; font-size: 1.05rem; line-height: 1.5; }
+  .realisation li::before { content: ""; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; background: var(--encre); }
+  .outils { font-family: var(--titre); font-size: .92rem; color: var(--encre-douce); margin: 0 0 .3rem; }
+  .code { font-family: var(--titre); font-size: .92rem; margin: 0; }
+  .code.interne { color: var(--encre-douce); }
+
+  /* pile */
+  .pile { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 2rem 3rem; }
+  .pile h3 { font-size: 1.1rem; margin-bottom: .5rem; }
+  .pile p { margin: 0; font-size: 1.05rem; line-height: 1.7; }
+
+  /* parcours */
+  .parcours { display: grid; gap: 2.2rem; }
+  .etape { display: grid; grid-template-columns: minmax(8rem, 12rem) minmax(0, 1fr); gap: 1rem 2rem; }
+  .etape .date { font-family: var(--titre); font-weight: 600; font-size: .98rem; padding-top: .25rem; }
+  .etape h3 { margin-bottom: .3rem; font-size: 1.25rem; }
+  .etape p { margin: 0 0 .6rem; max-width: 42em; }
+  .etape ul { margin: 0; padding-left: 1.1rem; max-width: 42em; }
+  .etape li { margin-bottom: .3rem; }
+  .langues { margin: 2.4rem 0 0; font-family: var(--titre); font-size: .98rem; }
+
+  /* contact */
+  .contact h2 { font-size: clamp(2rem, 5vw, 3.6rem); max-width: 14em; }
+  .mail { display: inline-block; font-family: var(--titre); font-stretch: 112%; font-weight: 700; font-size: clamp(1.2rem, 3.4vw, 2.1rem); color: var(--encre); text-decoration-thickness: 3px; text-underline-offset: 6px; word-break: break-word; margin-bottom: 1.4rem; }
+  .mail:hover { color: var(--foret); }
+  .contact .liens { margin-top: .4rem; }
+  footer { padding: 2rem 0 3rem; border-top: 1px solid var(--encre); font-family: var(--titre); font-size: .9rem; color: var(--encre-douce); }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; align-items: start; }
+    .etape { grid-template-columns: 1fr; gap: .3rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<div class="cadre">
+  <header class="haut">
+    <a class="marque" href="#">Mohamed Dieng</a>
+    <nav aria-label="Navigation principale">
+      <a href="#realisations">Réalisations</a>
+      <a href="#outils">Outils</a>
+      <a href="#parcours">Parcours</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div>
+        <h1><span>Mohamed</span><span>Dieng</span></h1>
+        <p class="accroche">Élève-ingénieur en 5ème année à l'UTC Compiègne, filière IA et données, diplôme en 2027. Je construis des chaînes de traitement de données, des outils géospatiaux et des assistants documentaires que des équipes non techniques font tourner sans moi.</p>
+        <p class="dispo">Je cherche un stage de fin d'études à partir de février 2027, partout en France, en IA générative, ingénierie des données ou machine learning.</p>
+        <div class="liens">
+          <a class="principal" href="#contact" data-u="mouhameddieng416" data-d="gmail.com">Écrire à Mohamed</a>
+          <a href="cv_mohamed_dieng_stage_pfe_2027.pdf">CV en PDF</a>
+          <a href="https://github.com/MDIENG158" rel="noopener noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/mohamed-dieng-9a7aa5303" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      </div>
+
+      <figure class="relief">
+        <canvas id="terrain" width="360" height="360" tabindex="0" role="img" aria-label="Relief synthétique ombré. La flèche gauche et la flèche droite font tourner la source de lumière."></canvas>
+        <div class="legende-relief">
+          <div class="rampe" aria-hidden="true"></div>
+          <span>vallée</span><span>crête</span>
+          <span class="lecture" id="lecture">Lumière du nord-ouest, 315°</span>
+        </div>
+        <figcaption>Relief synthétique généré dans ton navigateur, avec la palette altimétrique de mon MNT. Bouge la souris, ou utilise les flèches, pour tourner la source de lumière : c'est le principe du hillshade multi-directionnel de mon pipeline LiDAR.</figcaption>
+      </figure>
+    </div>
+
+    <section id="realisations">
+      <h2>Réalisations</h2>
+      <p class="intro">Quatre chantiers menés au Parc naturel régional Oise-Pays de France, puis trois projets personnels de machine learning.</p>
+      <p class="cle">
+        <span><i style="background:var(--foret)"></i>Stage au Parc, février à juillet 2026</span>
+        <span><i style="background:var(--ocre)"></i>Projet personnel</span>
+      </p>
+
+      <article class="realisation">
+        <h3>Traitement de 1 428 dalles LiDAR IGN HD</h3>
+        <p>Le Parc possédait environ 280 Go de nuages de points qu'aucun agent ne pouvait ouvrir dans QGIS. J'ai écrit la chaîne qui les transforme en modèles de terrain, de surface et d'élévation, plus un hillshade multi-directionnel, assemblés en mosaïque. Une interface web dans Docker permet aux agents de la relancer seuls.</p>
+        <ul>
+          <li>Huit cœurs en parallèle : de 62 s à 9 s par dalle, soit ×6,9. Environ 3,6 h estimées pour les 1 428 dalles.</li>
+          <li>Validation sur 12 dalles : 15 à 25 cm d'écart entre mon MNT et la BD ALTI 5 m de l'IGN.</li>
+          <li>Triangulation (TIN) pour le MNT, interpolation IDW sous forêt dense, où le TIN produit des pics.</li>
+          <li>Marge de recouvrement de 50 pixels et padding des bords pour supprimer les lignes aux jointures.</li>
+        </ul>
+        <p class="outils">Python, PDAL, laspy, rasterio, rvt-py, GDAL, Streamlit, Docker</p>
+        <p class="code interne">Code hébergé par le Parc. Démonstration sur demande.</p>
+      </article>
+
+      <article class="realisation">
+        <h3>Assistant qui répond sur la charte du Parc</h3>
+        <p>Les chargés de mission fouillaient à la main des dizaines de PDF pour retrouver une règle ou un engagement. L'assistant répond en langage naturel à partir de 380 documents et affiche les passages sources sous chaque réponse.</p>
+        <ul>
+          <li>API FastAPI avec trois routes : question, ajout de PDF, état du service.</li>
+          <li>Embeddings sentence-transformers, index FAISS et ChromaDB.</li>
+          <li>Sélection des passages par MMR, pour éviter qu'ils se répètent.</li>
+          <li>Génération par un modèle de langage local, sans service cloud.</li>
+          <li>Testé à la main par l'équipe. Les tests automatisés sont ce que j'écrirais en premier la prochaine fois.</li>
+        </ul>
+        <p class="outils">Python, FastAPI, sentence-transformers, FAISS, ChromaDB, Ollama</p>
+        <p class="code interne">Code hébergé par le Parc. Démonstration sur demande.</p>
+      </article>
+
+      <article class="realisation">
+        <h3>Migration d'une base de données et d'un serveur cartographique en production</h3>
+        <p>Les deux briques arrivaient en fin de support. J'ai migré la base centrale et le serveur cartographique vers des versions maintenues, sans casser les outils qui en dépendent.</p>
+        <ul>
+          <li>Coupure de service de moins d'une heure, planifiée un soir.</li>
+          <li>Durcissement de l'authentification de la base, application par application.</li>
+          <li>Deux fonctions PL/pgSQL : l'une ajoute le suivi de modification à n'importe quelle table, l'autre renseigne le code INSEE par intersection spatiale. Un seul appel suffit pour chacune.</li>
+          <li>Procédure de migration documentée pour la prochaine fois.</li>
+        </ul>
+        <p class="outils">PostgreSQL, PostGIS, PL/pgSQL, GeoServer</p>
+        <p class="code interne">Travail en production au Parc. Procédure et scripts décrits dans mon rapport de stage.</p>
+      </article>
+
+      <article class="realisation">
+        <h3>Données INSEE et fiches par commune</h3>
+        <p>Recueillir à la main les populations et les déplacements domicile-travail de 70 communes sur vingt ans n'était pas tenable. Un pipeline interroge l'API Mélodi de l'INSEE, range tout dans PostgreSQL, puis génère une fiche PDF par commune.</p>
+        <ul>
+          <li>Pipeline générique : un nouveau jeu de données se déclare en configuration, sans nouveau code.</li>
+          <li>Exécutable Windows et guide Word pour les collègues qui ne programment pas.</li>
+          <li>Vues PostGIS des flux entrants et sortants, utilisables dans QGIS et GeoServer.</li>
+          <li>Plus de 60 fiches PDF produites en moins de 3 minutes.</li>
+        </ul>
+        <p class="outils">Python, SDMX, PostgreSQL, PostGIS, matplotlib, PyInstaller</p>
+        <p class="code interne">Code hébergé par le Parc. Démonstration sur demande.</p>
+      </article>
+
+      <article class="realisation perso">
+        <h3>Maintenance prédictive de machines industrielles</h3>
+        <p>Un classifieur Random Forest prédit les pannes sur le jeu AI4I 2020 (F1 de 0,94). Il est servi par une API FastAPI dans Docker, et chaque expérience est suivie avec MLflow pour pouvoir la reproduire.</p>
+        <p class="outils">scikit-learn, FastAPI, MLflow, Docker</p>
+        <p class="code"><a href="https://github.com/MDIENG158" rel="noopener noreferrer">Code sur GitHub</a></p>
+      </article>
+
+      <article class="realisation perso">
+        <h3>Détection de fraude bancaire</h3>
+        <p>Classification de transactions très déséquilibrées avec XGBoost et SMOTE : AUC-ROC de 0,98, validation croisée et rapport de classification complet.</p>
+        <p class="outils">XGBoost, SMOTE, scikit-learn</p>
+        <p class="code"><a href="https://github.com/MDIENG158" rel="noopener noreferrer">Code sur GitHub</a></p>
+      </article>
+
+      <article class="realisation perso">
+        <h3>Maladies des plantes par réseau de neurones</h3>
+        <p>Transfer learning TensorFlow et Keras sur PlantVillage, avec augmentation de données, pour reconnaître 38 classes de maladies.</p>
+        <p class="outils">TensorFlow, Keras</p>
+        <p class="code"><a href="https://github.com/MDIENG158" rel="noopener noreferrer">Code sur GitHub</a></p>
+      </article>
+    </section>
+
+    <section id="outils">
+      <h2>Outils</h2>
+      <div class="pile">
+        <div>
+          <h3>Données et machine learning</h3>
+          <p>Python, pandas, NumPy, scikit-learn, XGBoost, TensorFlow, Keras</p>
+        </div>
+        <div>
+          <h3>Ingénierie des données</h3>
+          <p>PostgreSQL, PL/pgSQL, FastAPI, Docker, MLflow, Streamlit, Linux, Git</p>
+        </div>
+        <div>
+          <h3>IA générative</h3>
+          <p>RAG, sentence-transformers, FAISS, ChromaDB, Ollama</p>
+        </div>
+        <div>
+          <h3>Géospatial</h3>
+          <p>PostGIS, PDAL, laspy, rasterio, GDAL, QGIS, GeoServer</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="parcours">
+      <h2>Parcours</h2>
+      <div class="parcours">
+        <div class="etape">
+          <div class="date">Février à juillet 2026</div>
+          <div>
+            <h3>Stagiaire ingénieur SIG et données</h3>
+            <p>Parc naturel régional Oise-Pays de France, à Orry-la-Ville. En plus des quatre chantiers ci-dessus :</p>
+            <ul>
+              <li>widget de biodiversité intégré aux fiches de randonnée du portail du Parc ;</li>
+              <li>correction d'un défaut de configuration serveur qui vidait la barre de recherche de l'Atlas de biodiversité ;</li>
+              <li>mise en place d'une mesure de fréquentation hébergée par le Parc, sans outil tiers ;</li>
+              <li>application web FastAPI pour saisir les études et actions, en remplacement d'un ancien formulaire.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="etape">
+          <div class="date">Diplôme en 2027</div>
+          <div>
+            <h3>Cycle ingénieur, UTC Compiègne</h3>
+            <p>Filière intelligence artificielle et données : machine learning, deep learning, traitement du signal, statistiques.</p>
+          </div>
+        </div>
+        <div class="etape">
+          <div class="date">Avant l'UTC</div>
+          <div>
+            <h3>Classe préparatoire PSI</h3>
+            <p>Mathématiques et physique appliquées.</p>
+          </div>
+        </div>
+      </div>
+      <p class="langues">Français, langue maternelle (C2). Anglais, B2.</p>
+    </section>
+
+    <section id="contact" class="contact">
+      <h2>Stage de fin d'études à partir de février 2027</h2>
+      <p class="intro">Je cherche un stage de six mois, partout en France, où la donnée finit entre les mains de vrais utilisateurs. Écris-moi, je réponds vite.</p>
+      <a class="mail" href="https://www.linkedin.com/in/mohamed-dieng-9a7aa5303" rel="noopener noreferrer" data-u="mouhameddieng416" data-d="gmail.com" data-affiche>Me contacter sur LinkedIn</a>
+      <div class="liens">
+        <a href="cv_mohamed_dieng_stage_pfe_2027.pdf">CV en PDF</a>
+        <a href="https://www.linkedin.com/in/mohamed-dieng-9a7aa5303" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/MDIENG158" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </section>
+  </main>
+
+</div>
+
+<script>
+(function () {
+  var liens = document.querySelectorAll('a[data-u][data-d]');
+  for (var i = 0; i < liens.length; i++) {
+    var a = liens[i], adresse = a.getAttribute('data-u') + '@' + a.getAttribute('data-d');
+    a.href = 'mailto:' + adresse;
+    a.removeAttribute('rel');
+    if (a.hasAttribute('data-affiche')) a.textContent = adresse;
+  }
+})();
+(function () {
+  var canvas = document.getElementById('terrain');
+  if (!canvas || !canvas.getContext) return;
+  var ctx = canvas.getContext('2d');
+  var N = canvas.width;
+  var lecture = document.getElementById('lecture');
+  var reduit = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* bruit de valeurs, graine fixe */
+  var graine = 7311;
+  function hash(ix, iy) {
+    var h = Math.imul(ix, 374761393) + Math.imul(iy, 668265263) + graine;
+    h = Math.imul(h ^ (h >>> 13), 1274126177);
+    h ^= h >>> 16;
+    return (h >>> 0) / 4294967296;
+  }
+  function lisse(t) { return t * t * (3 - 2 * t); }
+  function bruit(x, y) {
+    var ix = Math.floor(x), iy = Math.floor(y);
+    var fx = lisse(x - ix), fy = lisse(y - iy);
+    var a = hash(ix, iy), b = hash(ix + 1, iy), c = hash(ix, iy + 1), d = hash(ix + 1, iy + 1);
+    var haut = a + (b - a) * fx, bas = c + (d - c) * fx;
+    return haut + (bas - haut) * fy;
+  }
+  function fbm(x, y) {
+    var v = 0, amp = 0.5, f = 1;
+    for (var o = 0; o < 6; o++) { v += amp * bruit(x * f, y * f); f *= 2; amp *= 0.5; }
+    return v;
+  }
+
+  /* hauteurs : relief doux traversé de crêtes et de vallons */
+  var hauteur = new Float32Array(N * N), mn = 1e9, mx = -1e9, i, x, y;
+  for (y = 0; y < N; y++) for (x = 0; x < N; x++) {
+    var u = x / N * 3.1, v = y / N * 3.1;
+    var doux = fbm(u, v);
+    var crete = 1 - Math.abs(2 * fbm(u + 9.3, v - 4.1) - 1);
+    var val = 0.62 * doux + 0.38 * crete * crete;
+    hauteur[y * N + x] = val;
+    if (val < mn) mn = val;
+    if (val > mx) mx = val;
+  }
+  for (i = 0; i < hauteur.length; i++) hauteur[i] = (hauteur[i] - mn) / (mx - mn);
+
+  /* teintes hypsométriques, celles du MNT du rapport */
+  var arrets = [
+    [0.00, 45, 106, 39], [0.25, 91, 158, 68], [0.45, 168, 196, 90],
+    [0.65, 212, 168, 71], [0.82, 176, 125, 66], [1.00, 122, 81, 48]
+  ];
+  function teinte(t) {
+    for (var k = 1; k < arrets.length; k++) {
+      if (t <= arrets[k][0]) {
+        var a = arrets[k - 1], b = arrets[k], p = (t - a[0]) / (b[0] - a[0]);
+        return [a[1] + (b[1] - a[1]) * p, a[2] + (b[2] - a[2]) * p, a[3] + (b[3] - a[3]) * p];
+      }
+    }
+    return [122, 81, 48];
+  }
+
+  /* couleur de base (un peu désaturée) et normale de chaque pixel */
+  var couleur = new Float32Array(N * N * 3), nx = new Float32Array(N * N), ny = new Float32Array(N * N), nz = new Float32Array(N * N);
+  var Z = 34; /* exagération verticale */
+  for (y = 0; y < N; y++) for (x = 0; x < N; x++) {
+    i = y * N + x;
+    var xl = hauteur[y * N + Math.max(0, x - 1)], xr = hauteur[y * N + Math.min(N - 1, x + 1)];
+    var yu = hauteur[Math.max(0, y - 1) * N + x], yd = hauteur[Math.min(N - 1, y + 1) * N + x];
+    var gx = (xr - xl) * 0.5 * Z;
+    var gn = (yu - yd) * 0.5 * Z; /* pente vers le nord (le haut de l'image) */
+    var len = Math.sqrt(gx * gx + gn * gn + 1);
+    nx[i] = -gx / len; ny[i] = -gn / len; nz[i] = 1 / len;
+    var c = teinte(hauteur[i]), lum = 0.3 * c[0] + 0.59 * c[1] + 0.11 * c[2];
+    couleur[i * 3] = c[0] * 0.78 + lum * 0.22;
+    couleur[i * 3 + 1] = c[1] * 0.78 + lum * 0.22;
+    couleur[i * 3 + 2] = c[2] * 0.78 + lum * 0.22;
+  }
+
+  var img = ctx.createImageData(N, N), data = img.data;
+  var elevation = 35 * Math.PI / 180;
+
+  function rendre(azDeg) {
+    var az = azDeg * Math.PI / 180;
+    var lx = Math.cos(elevation) * Math.sin(az), ly = Math.cos(elevation) * Math.cos(az), lz = Math.sin(elevation);
+    for (var j = 0; j < N * N; j++) {
+      var s = nx[j] * lx + ny[j] * ly + nz[j] * lz;
+      var f = 0.3 + 0.95 * s;
+      if (f < 0.12) f = 0.12;
+      var r = couleur[j * 3] * f, g = couleur[j * 3 + 1] * f, b = couleur[j * 3 + 2] * f;
+      var o = j * 4;
+      data[o] = r > 255 ? 255 : r;
+      data[o + 1] = g > 255 ? 255 : g;
+      data[o + 2] = b > 255 ? 255 : b;
+      data[o + 3] = 255;
+    }
+    ctx.putImageData(img, 0, 0);
+    var noms = ['nord', 'nord-est', 'est', 'sud-est', 'sud', 'sud-ouest', 'ouest', 'nord-ouest'];
+    var a = ((azDeg % 360) + 360) % 360;
+    lecture.textContent = 'Lumière du ' + noms[Math.round(a / 45) % 8] + ', ' + Math.round(a) + '°';
+  }
+
+  var azimut = 315, enAttente = false, utilisateur = false;
+  function demander(a) {
+    azimut = a;
+    if (enAttente) return;
+    enAttente = true;
+    requestAnimationFrame(function () { enAttente = false; rendre(azimut); });
+  }
+
+  rendre(315);
+
+  /* un seul mouvement d'entrée : le soleil fait un tour de l'est au nord-ouest */
+  if (!reduit) {
+    var debut = null, duree = 2400, de = 90, vers = 315;
+    (function pas(t) {
+      if (utilisateur) return;
+      if (debut === null) debut = t;
+      var p = Math.min(1, (t - debut) / duree);
+      var e = 1 - Math.pow(1 - p, 3);
+      rendre(de + (vers - de) * e);
+      if (p < 1) requestAnimationFrame(pas);
+    })(performance.now());
+  }
+
+  function depuisPointeur(e) {
+    var r = canvas.getBoundingClientRect();
+    var dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+    var a = Math.atan2(dx, -dy) * 180 / Math.PI;
+    utilisateur = true;
+    demander((a + 360) % 360);
+  }
+  window.addEventListener('pointermove', function (e) { if (e.pointerType === 'mouse') depuisPointeur(e); });
+  canvas.addEventListener('pointermove', function (e) { if (e.pointerType !== 'mouse') depuisPointeur(e); });
+  canvas.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      utilisateur = true;
+      demander((azimut + (e.key === 'ArrowRight' ? 15 : -15) + 360) % 360);
+    }
+  });
+})();
+</script>
+<script data-goatcounter="https://mdieng.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>
